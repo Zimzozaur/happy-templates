@@ -4,47 +4,49 @@ import io
 class HappyDoc:
     def __init__(self):
         self.doc = io.StringIO()
+        self.write = self.doc.write
 
-    def __call__(self):
-        return self.doc
+    def __call__(self, text: str):
+        self.write(text)
 
     def render(self):
         res = self.doc.getvalue()
         self.doc.close()
         return res
 
-    def write(self, text: str):
-        self.doc.write(text)
-
 
 class _HTMLTag:
     __name__ = "htmltag"
 
-    def __init__(self, _s=None, *, classes=None, id=None, **kwargs) -> None:
+    def __init__(self, _hd: HappyDoc, *, classes=None, id=None, **kwargs) -> None:
         if classes:
             kwargs["class"] = classes
         if id:
             kwargs["id"] = id
 
         self.tag_attrs = kwargs
-        self.output = _s
+        self.happy_doc = _hd
 
     def _format_attributes(self) -> str:
-        return " ".join(f'{key}="{value}"' for key, value in self.tag_attrs.items())
+        attrs = " ".join(
+            f'{key.replace("_", "-")}="{value}"'
+            for key, value in self.tag_attrs.items()
+        )
+        return " " + attrs if len(attrs) > 0 else ""
 
 
 class _HTMLContainerTag(_HTMLTag):
     def __enter__(self) -> None:
-        self.output.write(f"<{self.__name__} {self._format_attributes()}>")
+        self.happy_doc(f"<{self.__name__}{self._format_attributes()}>")
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.output.write(f"</{self.__name__}>")
+        self.happy_doc(f"</{self.__name__}>")
 
 
 class _HTMLSelfClosingTag(_HTMLTag):
-    def __init__(self, _s=None, *, classes=None, id=None, **kwargs) -> None:
-        super().__init__(_s=_s, classes=classes, id=id, **kwargs)
-        self.output.write(f"<{self.__name__} {self._format_attributes()}/>")
+    def __init__(self, _hd=None, *, classes=None, id=None, **kwargs) -> None:
+        super().__init__(_hd=_hd, classes=classes, id=id, **kwargs)
+        self.happy_doc(f"<{self.__name__}{self._format_attributes()}/>")
 
 
 ################################################################################
