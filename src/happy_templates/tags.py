@@ -1,7 +1,20 @@
 import io
-from contextlib import contextmanager
-import webbrowser
-import tempfile
+
+
+class HappyDoc:
+    def __init__(self):
+        self.doc = io.StringIO()
+
+    def __call__(self):
+        return self.doc
+
+    def render(self):
+        res = self.doc.getvalue()
+        self.doc.close()
+        return res
+
+    def write(self, text: str):
+        self.doc.write(text)
 
 
 class HTMLTag:
@@ -497,26 +510,3 @@ class video(HTMLContainerTag):
 
 class wbr(HTMLSelfClosingTag):
     __name__ = "wbr"
-
-
-@contextmanager
-def template():
-    with io.StringIO() as temp:
-        with a(temp, href="https://www.apple.com/"):
-            with h1(temp, style='font-size:32px;', classes="mario"):
-                temp.write("Happy Title")
-
-        with button(temp, style='background-color:#f1ab33'):
-            temp.write("Happy Button")
-        img(temp,
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/1280px-LEGO_logo.svg.png")
-        yield temp
-
-
-if __name__ == "__main__":
-    with template() as temp:
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".html") as f:
-            f.write(temp.getvalue().encode('utf-8'))
-            webbrowser.open(f"file://{f.name}")
-
-        print(temp.getvalue())
