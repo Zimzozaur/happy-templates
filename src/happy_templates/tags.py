@@ -17,7 +17,7 @@ class HappyDoc:
         self.doc.write(text)
 
 
-class HTMLTag:
+class _HTMLTag:
     __name__ = "htmltag"
 
     def __init__(self, _s=None, *, classes=None, id=None, **kwargs) -> None:
@@ -33,7 +33,7 @@ class HTMLTag:
         return " ".join(f'{key}="{value}"' for key, value in self.tag_attrs.items())
 
 
-class HTMLContainerTag(HTMLTag):
+class _HTMLContainerTag(_HTMLTag):
     def __enter__(self) -> None:
         self.output.write(f"<{self.__name__} {self._format_attributes()}>")
 
@@ -41,7 +41,7 @@ class HTMLContainerTag(HTMLTag):
         self.output.write(f"</{self.__name__}>")
 
 
-class HTMLSelfClosingTag(HTMLTag):
+class _HTMLSelfClosingTag(_HTMLTag):
     def __init__(self, _s=None, *, classes=None, id=None, **kwargs) -> None:
         super().__init__(_s=_s, classes=classes, id=id, **kwargs)
         self.output.write(f"<{self.__name__} {self._format_attributes()}/>")
@@ -52,461 +52,461 @@ class HTMLSelfClosingTag(HTMLTag):
 ################################################################################
 
 
-class a(HTMLContainerTag):
+class a(_HTMLContainerTag):
     __name__ = "a"
 
 
-class abbr(HTMLContainerTag):
+class abbr(_HTMLContainerTag):
     __name__ = "abbr"
 
 
-class acronym(HTMLContainerTag):
+class acronym(_HTMLContainerTag):
     __name__ = "acronym"
 
 
-class address(HTMLContainerTag):
+class address(_HTMLContainerTag):
     __name__ = "address"
 
 
-class area(HTMLSelfClosingTag):
+class area(_HTMLSelfClosingTag):
     __name__ = "area"
 
 
-class article(HTMLContainerTag):
+class article(_HTMLContainerTag):
     __name__ = "article"
 
 
-class aside(HTMLContainerTag):
+class aside(_HTMLContainerTag):
     __name__ = "aside"
 
 
-class b(HTMLContainerTag):
+class b(_HTMLContainerTag):
     __name__ = "b"
 
 
-class base(HTMLSelfClosingTag):
+class base(_HTMLSelfClosingTag):
     __name__ = "base"
 
 
-class bdi(HTMLContainerTag):
+class bdi(_HTMLContainerTag):
     __name__ = "bdi"
 
 
-class bdo(HTMLContainerTag):
+class bdo(_HTMLContainerTag):
     __name__ = "bdo"
 
 
-class blockquote(HTMLContainerTag):
+class blockquote(_HTMLContainerTag):
     __name__ = "blockquote"
 
 
-class body(HTMLContainerTag):
+class body(_HTMLContainerTag):
     __name__ = "body"
 
 
-class br(HTMLSelfClosingTag):
+class br(_HTMLSelfClosingTag):
     __name__ = "br"
 
 
-class button(HTMLContainerTag):
+class button(_HTMLContainerTag):
     __name__ = "button"
 
 
-class canvas(HTMLContainerTag):
+class canvas(_HTMLContainerTag):
     __name__ = "canvas"
 
 
-class caption(HTMLContainerTag):
+class caption(_HTMLContainerTag):
     __name__ = "caption"
 
 
-class cite(HTMLContainerTag):
+class cite(_HTMLContainerTag):
     __name__ = "cite"
 
 
-class code(HTMLContainerTag):
+class code(_HTMLContainerTag):
     __name__ = "code"
 
 
-class col(HTMLSelfClosingTag):
+class col(_HTMLSelfClosingTag):
     __name__ = "col"
 
 
-class colgroup(HTMLContainerTag):
+class colgroup(_HTMLContainerTag):
     __name__ = "colgroup"
 
 
-class data(HTMLContainerTag):
+class data(_HTMLContainerTag):
     __name__ = "data"
 
 
-class datalist(HTMLContainerTag):
+class datalist(_HTMLContainerTag):
     __name__ = "datalist"
 
 
-class dd(HTMLContainerTag):
+class dd(_HTMLContainerTag):
     __name__ = "dd"
 
 
-class del_(HTMLContainerTag):
+class del_(_HTMLContainerTag):
     __name__ = "del"
 
 
-class details(HTMLContainerTag):
+class details(_HTMLContainerTag):
     __name__ = "details"
 
 
-class dfn(HTMLContainerTag):
+class dfn(_HTMLContainerTag):
     __name__ = "dfn"
 
 
-class dialog(HTMLContainerTag):
+class dialog(_HTMLContainerTag):
     __name__ = "dialog"
 
 
-class div(HTMLContainerTag):
+class div(_HTMLContainerTag):
     __name__ = "div"
 
 
-class dl(HTMLContainerTag):
+class dl(_HTMLContainerTag):
     __name__ = "dl"
 
 
-class dt(HTMLContainerTag):
+class dt(_HTMLContainerTag):
     __name__ = "dt"
 
 
-class em(HTMLContainerTag):
+class em(_HTMLContainerTag):
     __name__ = "em"
 
 
-class embed(HTMLSelfClosingTag):
+class embed(_HTMLSelfClosingTag):
     __name__ = "embed"
 
 
-class fieldset(HTMLContainerTag):
+class fieldset(_HTMLContainerTag):
     __name__ = "fieldset"
 
 
-class figcaption(HTMLContainerTag):
+class figcaption(_HTMLContainerTag):
     __name__ = "figcaption"
 
 
-class figure(HTMLContainerTag):
+class figure(_HTMLContainerTag):
     __name__ = "figure"
 
 
-class footer(HTMLContainerTag):
+class footer(_HTMLContainerTag):
     __name__ = "footer"
 
 
-class form(HTMLContainerTag):
+class form(_HTMLContainerTag):
     __name__ = "form"
 
 
-class h1(HTMLContainerTag):
+class h1(_HTMLContainerTag):
     __name__ = "h1"
 
 
-class h2(HTMLContainerTag):
+class h2(_HTMLContainerTag):
     __name__ = "h2"
 
 
-class h3(HTMLContainerTag):
+class h3(_HTMLContainerTag):
     __name__ = "h3"
 
 
-class h4(HTMLContainerTag):
+class h4(_HTMLContainerTag):
     __name__ = "h4"
 
 
-class h5(HTMLContainerTag):
+class h5(_HTMLContainerTag):
     __name__ = "h5"
 
 
-class h6(HTMLContainerTag):
+class h6(_HTMLContainerTag):
     __name__ = "h6"
 
 
-class head(HTMLContainerTag):
+class head(_HTMLContainerTag):
     __name__ = "head"
 
 
-class header(HTMLContainerTag):
+class header(_HTMLContainerTag):
     __name__ = "header"
 
 
-class hr(HTMLSelfClosingTag):
+class hr(_HTMLSelfClosingTag):
     __name__ = "hr"
 
 
-class html(HTMLContainerTag):
+class html(_HTMLContainerTag):
     __name__ = "html"
 
 
-class i(HTMLContainerTag):
+class i(_HTMLContainerTag):
     __name__ = "i"
 
 
-class iframe(HTMLContainerTag):
+class iframe(_HTMLContainerTag):
     __name__ = "iframe"
 
 
-class img(HTMLSelfClosingTag):
+class img(_HTMLSelfClosingTag):
     __name__ = "img"
 
 
-class input(HTMLSelfClosingTag):
+class input(_HTMLSelfClosingTag):
     __name__ = "input"
 
 
-class ins(HTMLContainerTag):
+class ins(_HTMLContainerTag):
     __name__ = "ins"
 
 
-class kbd(HTMLContainerTag):
+class kbd(_HTMLContainerTag):
     __name__ = "kbd"
 
 
-class label(HTMLContainerTag):
+class label(_HTMLContainerTag):
     __name__ = "label"
 
 
-class legend(HTMLContainerTag):
+class legend(_HTMLContainerTag):
     __name__ = "legend"
 
 
-class link(HTMLSelfClosingTag):
+class link(_HTMLSelfClosingTag):
     __name__ = "link"
 
 
-class main(HTMLContainerTag):
+class main(_HTMLContainerTag):
     __name__ = "main"
 
 
-class map(HTMLContainerTag):
+class map(_HTMLContainerTag):
     __name__ = "map"
 
 
-class mark(HTMLContainerTag):
+class mark(_HTMLContainerTag):
     __name__ = "mark"
 
 
-class marquee(HTMLContainerTag):
+class marquee(_HTMLContainerTag):
     __name__ = "marquee"
 
 
-class math(HTMLContainerTag):
+class math(_HTMLContainerTag):
     __name__ = "math"
 
 
-class menu(HTMLContainerTag):
+class menu(_HTMLContainerTag):
     __name__ = "menu"
 
 
-class meta(HTMLSelfClosingTag):
+class meta(_HTMLSelfClosingTag):
     __name__ = "meta"
 
 
-class meter(HTMLContainerTag):
+class meter(_HTMLContainerTag):
     __name__ = "meter"
 
 
-class nav(HTMLContainerTag):
+class nav(_HTMLContainerTag):
     __name__ = "nav"
 
 
-class noscript(HTMLContainerTag):
+class noscript(_HTMLContainerTag):
     __name__ = "noscript"
 
 
-class object(HTMLContainerTag):
+class object(_HTMLContainerTag):
     __name__ = "object"
 
 
-class ol(HTMLContainerTag):
+class ol(_HTMLContainerTag):
     __name__ = "ol"
 
 
-class optgroup(HTMLContainerTag):
+class optgroup(_HTMLContainerTag):
     __name__ = "optgroup"
 
 
-class option(HTMLSelfClosingTag):
+class option(_HTMLSelfClosingTag):
     __name__ = "option"
 
 
-class output(HTMLContainerTag):
+class output(_HTMLContainerTag):
     __name__ = "output"
 
 
-class p(HTMLContainerTag):
+class p(_HTMLContainerTag):
     __name__ = "p"
 
 
-class param(HTMLSelfClosingTag):
+class param(_HTMLSelfClosingTag):
     __name__ = "param"
 
 
-class picture(HTMLContainerTag):
+class picture(_HTMLContainerTag):
     __name__ = "picture"
 
 
-class pre(HTMLContainerTag):
+class pre(_HTMLContainerTag):
     __name__ = "pre"
 
 
-class progress(HTMLContainerTag):
+class progress(_HTMLContainerTag):
     __name__ = "progress"
 
 
-class q(HTMLContainerTag):
+class q(_HTMLContainerTag):
     __name__ = "q"
 
 
-class rb(HTMLContainerTag):
+class rb(_HTMLContainerTag):
     __name__ = "rb"
 
 
-class rp(HTMLContainerTag):
+class rp(_HTMLContainerTag):
     __name__ = "rp"
 
 
-class rt(HTMLContainerTag):
+class rt(_HTMLContainerTag):
     __name__ = "rt"
 
 
-class ruby(HTMLContainerTag):
+class ruby(_HTMLContainerTag):
     __name__ = "ruby"
 
 
-class s(HTMLContainerTag):
+class s(_HTMLContainerTag):
     __name__ = "s"
 
 
-class samp(HTMLContainerTag):
+class samp(_HTMLContainerTag):
     __name__ = "samp"
 
 
-class script(HTMLContainerTag):
+class script(_HTMLContainerTag):
     __name__ = "script"
 
 
-class section(HTMLContainerTag):
+class section(_HTMLContainerTag):
     __name__ = "section"
 
 
-class select(HTMLContainerTag):
+class select(_HTMLContainerTag):
     __name__ = "select"
 
 
-class slot(HTMLContainerTag):
+class slot(_HTMLContainerTag):
     __name__ = "slot"
 
 
-class small(HTMLContainerTag):
+class small(_HTMLContainerTag):
     __name__ = "small"
 
 
-class source(HTMLSelfClosingTag):
+class source(_HTMLSelfClosingTag):
     __name__ = "source"
 
 
-class source(HTMLSelfClosingTag):
+class source(_HTMLSelfClosingTag):
     __name__ = "source"
 
 
-class span(HTMLContainerTag):
+class span(_HTMLContainerTag):
     __name__ = "span"
 
 
-class strong(HTMLContainerTag):
+class strong(_HTMLContainerTag):
     __name__ = "strong"
 
 
-class style(HTMLContainerTag):
+class style(_HTMLContainerTag):
     __name__ = "style"
 
 
-class sub(HTMLContainerTag):
+class sub(_HTMLContainerTag):
     __name__ = "sub"
 
 
-class summary(HTMLContainerTag):
+class summary(_HTMLContainerTag):
     __name__ = "summary"
 
 
-class sup(HTMLContainerTag):
+class sup(_HTMLContainerTag):
     __name__ = "sup"
 
 
-class svg(HTMLContainerTag):
+class svg(_HTMLContainerTag):
     __name__ = "svg"
 
 
-class table(HTMLContainerTag):
+class table(_HTMLContainerTag):
     __name__ = "table"
 
 
-class tbody(HTMLContainerTag):
+class tbody(_HTMLContainerTag):
     __name__ = "tbody"
 
 
-class td(HTMLContainerTag):
+class td(_HTMLContainerTag):
     __name__ = "td"
 
 
-class template(HTMLContainerTag):
+class template(_HTMLContainerTag):
     __name__ = "template"
 
 
-class textarea(HTMLContainerTag):
+class textarea(_HTMLContainerTag):
     __name__ = "textarea"
 
 
-class tfoot(HTMLContainerTag):
+class tfoot(_HTMLContainerTag):
     __name__ = "tfoot"
 
 
-class th(HTMLContainerTag):
+class th(_HTMLContainerTag):
     __name__ = "th"
 
 
-class thead(HTMLContainerTag):
+class thead(_HTMLContainerTag):
     __name__ = "thead"
 
 
-class time(HTMLContainerTag):
+class time(_HTMLContainerTag):
     __name__ = "time"
 
 
-class title(HTMLContainerTag):
+class title(_HTMLContainerTag):
     __name__ = "title"
 
 
-class tr(HTMLContainerTag):
+class tr(_HTMLContainerTag):
     __name__ = "tr"
 
 
-class track(HTMLSelfClosingTag):
+class track(_HTMLSelfClosingTag):
     __name__ = "track"
 
 
-class u(HTMLContainerTag):
+class u(_HTMLContainerTag):
     __name__ = "u"
 
 
-class ul(HTMLContainerTag):
+class ul(_HTMLContainerTag):
     __name__ = "ul"
 
 
-class var(HTMLContainerTag):
+class var(_HTMLContainerTag):
     __name__ = "var"
 
 
-class video(HTMLContainerTag):
+class video(_HTMLContainerTag):
     __name__ = "video"
 
 
-class wbr(HTMLSelfClosingTag):
+class wbr(_HTMLSelfClosingTag):
     __name__ = "wbr"
